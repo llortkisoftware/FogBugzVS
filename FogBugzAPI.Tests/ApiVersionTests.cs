@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FogBugzAPI.FogBugzClient;
 using FogBugzAPI.Model;
 using NUnit.Framework;
 
-namespace FogBugzAPI.Tests.Model
+namespace FogBugzAPI.Tests
 {
     [TestFixture]
     public class ApiVersionTests
@@ -15,8 +11,9 @@ namespace FogBugzAPI.Tests.Model
         public async void TestGetAPIVersion()
         {
             Configuration cfg = Configuration.Load();
-            Assert.AreEqual(2, cfg.BaseUrlList.Count);
-            ApiVersion ver = await ApiVersion.GetApiVersion(cfg.BaseUrlList[0]);
+            FogBugzClientAsync client = new FogBugzClientAsync(cfg.BaseUrlList[0]);
+
+            ApiVersion ver = client.ApiVersion;
 
             Assert.AreEqual("api.asp?", ver.ApiLocation);
             Assert.AreEqual(8, ver.Version);

@@ -45,10 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationTests.cs" />
-    <Compile Include="Model\ApiVersionTests.cs" />
-    <Compile Include="Model\FilterTests.cs" />
+    <Compile Include="ApiVersionTests.cs" />
+    <Compile Include="FilterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XMLAPI\AuthenticationTests.cs" />
+    <Compile Include="AuthenticationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,6 +1,10 @@
 # FogBugzVS
 FogBugz Extension for VisualStudio 2015
 
-Currently imlementing the API calls.
+# Currently implemented API Commands
+* Logon
+* Logoff
+* Token validation
+* Get filter list
+* Set filter
 
-Code quality currently sucks. This will improve over time. The code here was put together in ~8 hours.

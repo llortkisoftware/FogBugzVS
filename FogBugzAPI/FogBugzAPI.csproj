@@ -41,12 +41,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
+    <Compile Include="Exceptions\FogBugzException.cs" />
+    <Compile Include="FogBugzClient\Command\CaseCommands.cs" />
+    <Compile Include="FogBugzClient\Command\LogoffCommand.cs" />
+    <Compile Include="FogBugzClient\Command\LogonCommand.cs" />
+    <Compile Include="Model\AuthenticationErrorResponse.cs" />
+    <Compile Include="FogBugzClient\Command\ListFiltersCommand.cs" />
+    <Compile Include="Model\AuthenticationResponse.cs" />
+    <Compile Include="FogBugzClient\Command\SetFilterCommands.cs" />
+    <Compile Include="FogBugzClient\IFogBugzCommand.cs" />
     <Compile Include="Model\ApiVersion.cs" />
     <Compile Include="Model\Filter.cs" />
+    <Compile Include="Model\FilterList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XMLAPI\Authentication.cs" />
-    <Compile Include="XMLAPI\FogBugzRequest.cs" />
-    <Compile Include="XMLAPI\Utilities.cs" />
+    <Compile Include="FogBugzClient\Command\ValidateTokenCommand.cs" />
+    <Compile Include="FogBugzClient\FogBugzClientAsync.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

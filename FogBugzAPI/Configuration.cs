@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using FogBugzAPI.XMLAPI;
 
 namespace FogBugzAPI
 {
@@ -18,20 +17,14 @@ namespace FogBugzAPI
         public string DefaultPassword { get; set; }
         public string DisplayName { get; set; }
         public string Token { get; set; }
-        public string ApiLocation { get; set; }
         
-        [NonSerialized]
-        private ApiParameter _tokenParameter;
+        //[NonSerialized]
+        //private Uri _baseUri;
 
-        public ApiParameter TokenParameter => _tokenParameter ?? (_tokenParameter = new ApiParameter("Token", Token));
-
-        [NonSerialized]
-        private Uri _baseUri;
-
-        public Uri GetBaseUri()
-        {
-            return _baseUri ?? (_baseUri = new Uri(BaseUrl));
-        }
+        //public Uri GetBaseUri()
+        //{
+        //    return _baseUri ?? (_baseUri = new Uri(BaseUrl));
+        //}
 
 
         public override bool Equals(object obj)
