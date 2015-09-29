@@ -45,6 +45,7 @@
     <Compile Include="FogBugzClient\Command\CaseCommands.cs" />
     <Compile Include="FogBugzClient\Command\LogoffCommand.cs" />
     <Compile Include="FogBugzClient\Command\LogonCommand.cs" />
+    <Compile Include="FogBugzClient\FogBugzReturn.cs" />
     <Compile Include="Model\AuthenticationErrorResponse.cs" />
     <Compile Include="FogBugzClient\Command\ListFiltersCommand.cs" />
     <Compile Include="Model\AuthenticationResponse.cs" />

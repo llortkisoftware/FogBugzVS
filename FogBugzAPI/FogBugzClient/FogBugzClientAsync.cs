@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.XPath;
 using FogBugzAPI.Exceptions;
 using FogBugzAPI.Model;
 using FogBugzAPI.FogBugzClient;
@@ -29,7 +28,7 @@ namespace FogBugzAPI.FogBugzClient
         /// Synchronously Checks the API version on construction.
         /// </summary>
         /// <param name="fogBugzUrl">FogBugz remote Url</param>
-        /// <exception cref="FogBugzException">Throws FogBugzException if API vesion is less than the supported api version</exception>
+        /// <exception cref="FogBugzException">Throws FogBugzException if API version is less than the supported api version</exception>
         public FogBugzClientAsync(FogBugzUrl fogBugzUrl)
         {
             _baseUrl = new Uri(fogBugzUrl.BaseUrl);
@@ -98,7 +97,11 @@ namespace FogBugzAPI.FogBugzClient
             return commandString.ToString();
         }
 
-        //Convenience methods for logon and logoff so the token is automatically set.
+        /// <summary>
+        /// Convenience method to execute a logon command
+        /// </summary>
+        /// <param name="defaults">Configuration object with a saved default username and password.</param>
+        /// <returns>An authentication response. This may be of type <see cref="AuthenticationErrorResponse"/> if an authntication was returned</returns>
         public async Task<AuthenticationResponse> LogonAsync(FogBugzUrl defaults)
         {
             LogonCommand command = new LogonCommand(defaults);
@@ -111,6 +114,12 @@ namespace FogBugzAPI.FogBugzClient
             return response;
         }
 
+        /// <summary>
+        /// Convenience method to execute a logon command
+        /// </summary>
+        /// <param name="username">Full name or email address</param>
+        /// <param name="password">Password</param>
+        /// <returns>An authentication response. This may be of type <see cref="AuthenticationErrorResponse"/> if an authntication was returned</returns>
         public async Task<AuthenticationResponse> LogonAsync(string username, string password)
         {
             LogonCommand command = new LogonCommand(username, password);
@@ -123,31 +132,24 @@ namespace FogBugzAPI.FogBugzClient
             return response;
         }
 
+        /// <summary>
+        /// Convenience method to execute a logoff command
+        /// </summary>
+        /// <returns>FogBugzReturn response received</returns>
         public async Task<FogBugzReturn> LogoffAsync()
         {
             return await ExecuteAsync(new LogoffCommand());
         }
 
+        /// <summary>
+        /// Convenience method to execute a validate token command
+        /// </summary>
+        /// <param name="token">Token to validate</param>
+        /// <returns>An authentication response. This may be of type <see cref="AuthenticationErrorResponse"/> if an authntication was returned</returns>
         public async Task<AuthenticationResponse> ValidateTokenAsync(string token)
         {
             ValidateTokenCommand command = new ValidateTokenCommand(token);
             return await ExecuteAsync(command);
-        }
-    }
-
-    public class FogBugzReturn : IFogBugzType
-    {
-
-        public Boolean IsError { get; private set; }
-        public XDocument XmlDocument { get; private set; }
-
-        public FogBugzReturn(XDocument xmlDocument)
-        {
-            XmlDocument = xmlDocument;
-            if (xmlDocument.XPathSelectElement("/response/error") != null)
-            {
-                IsError = true;
-            }
         }
     }
 }

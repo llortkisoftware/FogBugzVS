@@ -9,7 +9,9 @@ using System.Xml.Serialization;
 namespace FogBugzAPI
 {
     [Serializable]
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public class FogBugzUrl
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
 
         public string BaseUrl { get; set; }
@@ -17,15 +19,6 @@ namespace FogBugzAPI
         public string DefaultPassword { get; set; }
         public string DisplayName { get; set; }
         public string Token { get; set; }
-        
-        //[NonSerialized]
-        //private Uri _baseUri;
-
-        //public Uri GetBaseUri()
-        //{
-        //    return _baseUri ?? (_baseUri = new Uri(BaseUrl));
-        //}
-
 
         public override bool Equals(object obj)
         {
