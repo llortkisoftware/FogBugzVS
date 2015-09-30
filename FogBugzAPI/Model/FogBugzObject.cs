@@ -18,11 +18,13 @@ namespace FogBugzAPI.Model {
 
             foreach (var fieldName in caseFieldsName)
             {
-                TCreatableField caseField = fieldCreator.CreateField(fieldName);
-                XElement fieldXElement = element.XPathSelectElement(caseField.FogBugzName);
+                
+                XElement fieldXElement = element.XPathSelectElement(fieldCreator.GetFogBugzName(fieldName));
                 if (fieldXElement != null)
                 {
-                    Fields.Add(caseField.CreateNew(fieldXElement.Value));
+                    TCreatableField caseField = fieldCreator.CreateField(fieldName);
+                    caseField.Value.FromString(fieldXElement.Value);
+                    Fields.Add(caseField);
                 }
             }
         }

@@ -55,9 +55,14 @@ namespace FogBugzAPI.Model.Fields {
             LookupTable.Add(field.FieldName, field);
         }
 
-        public TCreatable CreateField(TEnum caseFieldName)
+        public string GetFogBugzName(TEnum fieldName)
         {
-            return ((FieldBase<TEnum, TCreatable>) LookupTable[caseFieldName]).CreateNew();
+            return ((FieldBase<TEnum, TCreatable>) LookupTable[fieldName]).FogBugzName;
+        }
+
+        public TCreatable CreateField(TEnum fieldName)
+        {
+            return ((FieldBase<TEnum, TCreatable>) LookupTable[fieldName]).CreateNew();
         }
 
         public static TCreatable GetInstance()

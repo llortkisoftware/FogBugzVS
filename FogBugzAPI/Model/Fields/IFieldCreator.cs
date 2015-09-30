@@ -5,5 +5,6 @@ namespace FogBugzAPI.Model.Fields {
         where TEnum : struct, IConvertible, IComparable, IFormattable 
         where TCreatable : new() {
         TCreatable CreateField(TEnum fieldName);
+        string GetFogBugzName(TEnum fieldName);
     }
 }
