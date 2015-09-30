@@ -7,4 +7,5 @@ FogBugz Extension for VisualStudio 2015
 * Token validation
 * Get filter list
 * Set filter
+* Get a single case with specified columns
 

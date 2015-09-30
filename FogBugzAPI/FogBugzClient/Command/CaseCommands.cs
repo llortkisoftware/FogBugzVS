@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.XPath;
+using FogBugzAPI.Model;
+using FogBugzAPI.Model.Cases;
+using FogBugzAPI.Model.Cases.Fields;
 
 namespace FogBugzAPI.FogBugzClient.Command
 {
@@ -64,11 +68,11 @@ Arguments:
 
 cmd=resolve
 
-Same as cmd=edit, with the addition of the ixStatus field.  Note: the UI does not let you change the project, area, assigned to, and category on resolve.  The API does.
+Same as cmd=edit, with the addition of the ixStatus FieldName.  Note: the UI does not let you change the project, area, assigned to, and category on resolve.  The API does.
 
 cmd=close
 
-Same as cmd=edit.  Note: the UI does not let you change any fields on close.  The API does.  However, ixPersonAssignedTo will always be set to 1 (the CLOSED user).
+Same as cmd=edit.  Note: the UI does not let you change any fieldsName on close.  The API does.  However, ixPersonAssignedTo will always be set to 1 (the CLOSED user).
 
 cmd=email, cmd=reply, and cmd=forward
 
@@ -76,7 +80,35 @@ Same as cmd=edit, with additional arguments: sFrom (required), sTo (required), i
 
 It is not required, but we recommend making sure the case you email from has sCustomerEmail and ixMailbox set.
 
- Note: You can supply any address for the sFrom field, although the UI restricts you to email addresses that FogBugz is actively checking (so that when a user replies to your email, it will actually go back into FogBugz).  The sFrom field you supply here should be one of the values returned from the cmd=listMailboxes command, and best practices suggest using a matching ixMailbox value for the case.
+ Note: You can supply any address for the sFrom FieldName, although the UI restricts you to email addresses that FogBugz is actively checking (so that when a user replies to your email, it will actually go back into FogBugz).  The sFrom FieldName you supply here should be one of the values returned from the cmd=listMailboxes command, and best practices suggest using a matching ixMailbox value for the case.
     */
+
+        public class GetCaseCommand : IFogBugzCommand<Case> {
+            public string Command => "search";
+
+            public List<KeyValuePair<string, string>> Parameters { get; } = new List<KeyValuePair<string, string>>();
+
+            public GetCaseCommand(int caseId) : this(caseId, new List<FieldName>()) { }
+
+            public GetCaseCommand(int caseId, List<FieldName> fieldNames)
+            {
+                Parameters.Add(new KeyValuePair<string, string>("q", caseId.ToString()));
+                if (fieldNames.Count > 0)
+                {
+                    StringBuilder colsBuilder = new StringBuilder();
+                    foreach (var fieldName in fieldNames)
+                    {
+                        colsBuilder.Append(Field.GetFogBugzCaseField(fieldName).FogBugzName).Append(",");
+                    }
+                    colsBuilder.Remove(colsBuilder.Length - 1, 1);
+                    Parameters.Add(new KeyValuePair<string, string>("cols", colsBuilder.ToString()));
+                }
+            }
+            public Case CreateResponse(FogBugzReturn fogBugzReturn)
+            {
+                CaseList list = new CaseList(fogBugzReturn);
+                return list.Count > 0 ? list[0] : null;
+            }
+        }
     }
 }
