@@ -35,7 +35,7 @@ namespace FogBugzAPI.Model.Cases
     }
 
 
-    public class Case : FogBugzObject<CaseFieldName, CaseField, CaseField>
+    public class Case : FogBugzObject<CaseFieldName, CaseFieldCreator, CaseField>
     {
         public List<CaseOperation> AvailableCaseOperations { get; } = new List<CaseOperation>();
 
@@ -49,7 +49,7 @@ namespace FogBugzAPI.Model.Cases
             return Fields.Count(c => c.FieldName == caseFieldName) > 0;
         }
 
-        public Case(XElement caseElement) : base(caseElement, CaseField.GetInstance())
+        public Case(XElement caseElement) : base(caseElement, new CaseFieldCreator())
         {
             String[] operationStrings = caseElement.Attribute("operations").Value.Split(',');
 

@@ -4,9 +4,9 @@ using FogBugzAPI.Model.Projects.Fields;
 
 namespace FogBugzAPI.Model.Projects
 {
-    public class Project : FogBugzObject<ProjectFieldName, ProjectField, ProjectField>
+    public class Project : FogBugzObject<ProjectFieldName, ProjectFieldCreator, ProjectField>
     {
-        public Project(XElement projectElement) : base(projectElement, ProjectField.GetInstance())
+        public Project(XElement projectElement) : base(projectElement, new ProjectFieldCreator())
         {
         }
     }

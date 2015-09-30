@@ -1,17 +1,14 @@
 using System;
-using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography.X509Certificates;
 using FogBugzAPI.Model.Cases.Fields;
 
 namespace FogBugzAPI.Model.Fields {
-    public abstract class FieldBase<TEnum, TCreatable> : ICreatableField<TCreatable>, IFieldCreator<TEnum, TCreatable> 
-        where TEnum : struct, IConvertible, IComparable, IFormattable 
-        where TCreatable : new() {
-        [SuppressMessage("ReSharper", "StaticMemberInGenericType")] private static readonly Hashtable LookupTable = new Hashtable();
-        
-        protected FieldBase() { } 
-        protected FieldBase(TEnum caseFieldName, FieldType fieldType, string fogBugzName)
+    
+    public abstract class Field<TEnum, TCreatable> : ICreatableField<TCreatable>
+        where TEnum : struct, IConvertible, IComparable, IFormattable
+        where TCreatable : ICreatableField<TCreatable> {
+
+        protected Field(TEnum caseFieldName, FieldType fieldType, string fogBugzName)
         {
             FieldName = caseFieldName;
             FieldType = fieldType;
@@ -49,30 +46,8 @@ namespace FogBugzAPI.Model.Fields {
         public FieldValue Value { get; private set; }
         public TEnum FieldName { get; private set; }
 
-
-        protected static void AddToLookupTable(FieldBase<TEnum, TCreatable> field)
-        {
-            LookupTable.Add(field.FieldName, field);
-        }
-
-        public string GetFogBugzName(TEnum fieldName)
-        {
-            return ((FieldBase<TEnum, TCreatable>) LookupTable[fieldName]).FogBugzName;
-        }
-
-        public TCreatable CreateField(TEnum fieldName)
-        {
-            return ((FieldBase<TEnum, TCreatable>) LookupTable[fieldName]).CreateNew();
-        }
-
-        public static TCreatable GetInstance()
-        {
-            return new TCreatable();
-        }
-
         public abstract TCreatable CreateNew();
 
         public abstract TCreatable CreateNew(string value);
-        
     }
 }

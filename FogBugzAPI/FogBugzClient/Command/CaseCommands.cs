@@ -40,10 +40,11 @@ It is not required, but we recommend making sure the case you email from has sCu
                 if (fieldNames.Count > 0)
                 {
                     StringBuilder colsBuilder = new StringBuilder();
-                    CaseField fieldCreator = CaseField.GetInstance();
+                    CaseFieldCreator fieldCreator = new CaseFieldCreator();
+                    
                     foreach (var fieldName in fieldNames)
                     {
-                        colsBuilder.Append(fieldCreator.CreateField(fieldName).FogBugzName).Append(",");
+                        colsBuilder.Append(fieldCreator.GetFogBugzName(fieldName)).Append(",");
                     }
                     colsBuilder.Remove(colsBuilder.Length - 1, 1);
                     Parameters.Add(new KeyValuePair<string, string>("cols", colsBuilder.ToString()));

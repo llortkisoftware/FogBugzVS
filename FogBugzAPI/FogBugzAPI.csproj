@@ -55,8 +55,10 @@
     <Compile Include="Model\ApiVersion.cs" />
     <Compile Include="Model\Cases\Case.cs" />
     <Compile Include="Model\Cases\CaseModification.cs" />
+    <Compile Include="Model\Cases\Fields\CaseFieldCreator.cs" />
     <Compile Include="Model\Cases\Fields\CaseFieldName.cs" />
-    <Compile Include="Model\Fields\FieldBase.cs" />
+    <Compile Include="Model\Fields\Field.cs" />
+    <Compile Include="Model\Fields\FieldCreator.cs" />
     <Compile Include="Model\Fields\FieldType.cs" />
     <Compile Include="Model\Fields\FieldValue.cs" />
     <Compile Include="Model\Cases\CaseList.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="Model\Cases\Fields\CaseField.cs" />
     <Compile Include="Model\FogBugzObject.cs" />
     <Compile Include="Model\Projects\Fields\ProjectField.cs" />
+    <Compile Include="Model\Projects\Fields\ProjectFieldCreator.cs" />
     <Compile Include="Model\Projects\Fields\ProjectFieldName.cs" />
     <Compile Include="Model\Projects\Project.cs" />
     <Compile Include="Model\Projects\ProjectList.cs" />
