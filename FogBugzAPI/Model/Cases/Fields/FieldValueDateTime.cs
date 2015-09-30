@@ -19,13 +19,13 @@ namespace FogBugzAPI.Model.Cases.Fields
                 return;
             }
 
-            Value = Convert.ToDateTime(value);
+            Value = Convert.ToDateTime(value).ToLocalTime();
         }
 
         public override string ToStringValue()
         {
             DateTime dtValue = (DateTime)Value;
-            return dtValue.ToUniversalTime().ToLongDateString() + dtValue.ToUniversalTime().ToLongTimeString();
+            return dtValue.ToUniversalTime().ToString("o");
         }
     }
 }
