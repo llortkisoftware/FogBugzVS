@@ -21,10 +21,10 @@ namespace FogBugzAPI.Tests
 
             var auth = await fogBugzClient.LogonAsync(cfg.BaseUrlList[0]);
 
-            var @case = await fogBugzClient.ExecuteAsync(new CaseCommands.GetCaseCommand(1, new List<FieldName>((FieldName[])Enum.GetValues(typeof(FieldName))) ));
+            var @case = await fogBugzClient.ExecuteAsync(new CaseCommands.GetCaseCommand(1, new List<CaseFieldName>((CaseFieldName[])Enum.GetValues(typeof(CaseFieldName))) ));
 
             Assert.NotNull(@case);
-            Assert.AreEqual(2,@case.GetFogBugzCaseField(FieldName.PersonOpenedById).Value.GetValue<int>());
+            Assert.AreEqual(2,@case.GetFogBugzCaseField(CaseFieldName.PersonOpenedById).Value.GetValue<int>());
 
             await fogBugzClient.LogoffAsync();
 

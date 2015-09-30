@@ -1,6 +1,7 @@
 namespace FogBugzAPI.Model.Cases.Fields {
-    public enum FieldName
+    public enum CaseFieldName
     {
+        BugId,
         ParentCase,
         Open,
         Title,
